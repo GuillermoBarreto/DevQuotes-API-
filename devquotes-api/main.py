@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 import random
 import json
 
@@ -13,6 +13,8 @@ def read_root():
 
 @app.get("/quote")
 def get_random_quote():
+    if not quotes:
+        raise HTTPException(status_code=404, detail="No quotes available")
     return random.choice(quotes)
 
 @app.get("/quotes")
