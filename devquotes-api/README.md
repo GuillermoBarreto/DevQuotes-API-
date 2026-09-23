@@ -11,4 +11,4 @@ A lightweight FastAPI project that returns random inspirational quotes for devel
 ## How to Run
 
 ```bash
-uvicorn main:app --reloadsource 
+uvicorn main:app --reload
