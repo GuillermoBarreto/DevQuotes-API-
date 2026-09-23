@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException
+from pathlib import Path
 import random
 import json
 
 app = FastAPI()
 
-with open("quotes.json") as f:
+QUOTES_PATH = Path(__file__).with_name("quotes.json")
+with QUOTES_PATH.open() as f:
     quotes = json.load(f)
 
 @app.get("/")
