@@ -6,8 +6,13 @@ import json
 app = FastAPI()
 
 QUOTES_PATH = Path(__file__).with_name("quotes.json")
-with QUOTES_PATH.open() as f:
-    quotes = json.load(f)
+
+try:
+    with QUOTES_PATH.open() as f:
+        quotes = json.load(f)
+except (FileNotFoundError, json.JSONDecodeError):
+    # Start with an empty list so the API stays up; /quote answers 404.
+    quotes = []
 
 @app.get("/")
 def read_root():
