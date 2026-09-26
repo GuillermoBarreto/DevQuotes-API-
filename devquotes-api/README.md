@@ -12,3 +12,4 @@ A lightweight FastAPI project that returns random inspirational quotes for devel
 
 ```bash
 uvicorn main:app --reload
+```
