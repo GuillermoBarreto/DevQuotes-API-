@@ -30,6 +30,12 @@ def read_root():
     return {"message": "Welcome to the DevQuotes API!"}
 
 
+@app.get("/health")
+def health_check():
+    """Lightweight liveness probe reporting how many quotes are loaded."""
+    return {"status": "ok", "quotes_loaded": len(quotes)}
+
+
 @app.get("/quote")
 def get_random_quote():
     if not quotes:
