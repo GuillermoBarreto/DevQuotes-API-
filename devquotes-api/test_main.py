@@ -29,3 +29,16 @@ def test_quote_returns_404_when_list_is_empty(monkeypatch):
     monkeypatch.setattr(main, "quotes", [])
     response = client.get("/quote")
     assert response.status_code == 404
+
+
+def test_health_reports_status_and_quote_count():
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok", "quotes_loaded": len(main.quotes)}
+
+
+def test_health_reflects_empty_quotes(monkeypatch):
+    monkeypatch.setattr(main, "quotes", [])
+    response = client.get("/health")
+    assert response.status_code == 200
+    assert response.json() == {"status": "ok", "quotes_loaded": 0}
