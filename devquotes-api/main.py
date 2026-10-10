@@ -9,7 +9,15 @@ QUOTES_PATH = Path(__file__).with_name("quotes.json")
 
 
 def _is_valid_quote(entry):
-    return isinstance(entry, dict) and "author" in entry and "quote" in entry
+    # Check value types too: an entry like {"author": 123, "quote": None}
+    # passes a key-presence check but would serve garbage to API consumers.
+    return (
+        isinstance(entry, dict)
+        and isinstance(entry.get("author"), str)
+        and isinstance(entry.get("quote"), str)
+        and bool(entry["author"].strip())
+        and bool(entry["quote"].strip())
+    )
 
 
 try:
