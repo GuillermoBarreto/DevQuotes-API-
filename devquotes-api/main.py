@@ -28,8 +28,9 @@ try:
         quotes = [q for q in loaded if _is_valid_quote(q)]
     else:
         quotes = []
-except (FileNotFoundError, json.JSONDecodeError):
-    # Start with an empty list so the API stays up; /quote answers 404.
+except (FileNotFoundError, json.JSONDecodeError, OSError):
+    # OSError covers e.g. permission errors: start with an empty list so the
+    # API stays up; /quote answers 404.
     quotes = []
 
 
